@@ -15,13 +15,17 @@ in
 with pkgs;
 
 mkShell {
-  buildInputs = [
-    pkgs.go_1_14
+  buildInputs = with pkgs; [
+    go_1_14
+    delve
   ];
 
   shellHook = ''
     export GO111MODULE=on
     export GOPRIVATE=github.com/xtruder/\*
     export GOPATH=$PWD/.go
+    export PATH=$GOPATH/bin:$PATH
+    
+    cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
   '';
 }
