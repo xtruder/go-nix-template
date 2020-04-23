@@ -1,5 +1,5 @@
 // +build tools
 
-package synapse
+package mypkg
 
 import ()
